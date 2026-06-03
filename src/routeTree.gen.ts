@@ -14,8 +14,15 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedDashboardRouteRouteImport } from './routes/_authenticated/dashboard/route'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
+import { Route as AuthenticatedDashboardTasksRouteImport } from './routes/_authenticated/dashboard/tasks'
 import { Route as AuthenticatedDashboardSummarizeRouteImport } from './routes/_authenticated/dashboard/summarize'
+import { Route as AuthenticatedDashboardSettingsRouteImport } from './routes/_authenticated/dashboard/settings'
+import { Route as AuthenticatedDashboardRemindersRouteImport } from './routes/_authenticated/dashboard/reminders'
+import { Route as AuthenticatedDashboardQuizRouteImport } from './routes/_authenticated/dashboard/quiz'
+import { Route as AuthenticatedDashboardHistoryRouteImport } from './routes/_authenticated/dashboard/history'
+import { Route as AuthenticatedDashboardExplainerRouteImport } from './routes/_authenticated/dashboard/explainer'
 import { Route as AuthenticatedDashboardChatRouteImport } from './routes/_authenticated/dashboard/chat'
+import { Route as AuthenticatedDashboardAnalyticsRouteImport } from './routes/_authenticated/dashboard/analytics'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -43,10 +50,46 @@ const AuthenticatedDashboardIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedDashboardRouteRoute,
   } as any)
+const AuthenticatedDashboardTasksRoute =
+  AuthenticatedDashboardTasksRouteImport.update({
+    id: '/tasks',
+    path: '/tasks',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
 const AuthenticatedDashboardSummarizeRoute =
   AuthenticatedDashboardSummarizeRouteImport.update({
     id: '/summarize',
     path: '/summarize',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
+const AuthenticatedDashboardSettingsRoute =
+  AuthenticatedDashboardSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
+const AuthenticatedDashboardRemindersRoute =
+  AuthenticatedDashboardRemindersRouteImport.update({
+    id: '/reminders',
+    path: '/reminders',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
+const AuthenticatedDashboardQuizRoute =
+  AuthenticatedDashboardQuizRouteImport.update({
+    id: '/quiz',
+    path: '/quiz',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
+const AuthenticatedDashboardHistoryRoute =
+  AuthenticatedDashboardHistoryRouteImport.update({
+    id: '/history',
+    path: '/history',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
+const AuthenticatedDashboardExplainerRoute =
+  AuthenticatedDashboardExplainerRouteImport.update({
+    id: '/explainer',
+    path: '/explainer',
     getParentRoute: () => AuthenticatedDashboardRouteRoute,
   } as any)
 const AuthenticatedDashboardChatRoute =
@@ -55,20 +98,40 @@ const AuthenticatedDashboardChatRoute =
     path: '/chat',
     getParentRoute: () => AuthenticatedDashboardRouteRoute,
   } as any)
+const AuthenticatedDashboardAnalyticsRoute =
+  AuthenticatedDashboardAnalyticsRouteImport.update({
+    id: '/analytics',
+    path: '/analytics',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRouteRouteWithChildren
+  '/dashboard/analytics': typeof AuthenticatedDashboardAnalyticsRoute
   '/dashboard/chat': typeof AuthenticatedDashboardChatRoute
+  '/dashboard/explainer': typeof AuthenticatedDashboardExplainerRoute
+  '/dashboard/history': typeof AuthenticatedDashboardHistoryRoute
+  '/dashboard/quiz': typeof AuthenticatedDashboardQuizRoute
+  '/dashboard/reminders': typeof AuthenticatedDashboardRemindersRoute
+  '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
   '/dashboard/summarize': typeof AuthenticatedDashboardSummarizeRoute
+  '/dashboard/tasks': typeof AuthenticatedDashboardTasksRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/dashboard/analytics': typeof AuthenticatedDashboardAnalyticsRoute
   '/dashboard/chat': typeof AuthenticatedDashboardChatRoute
+  '/dashboard/explainer': typeof AuthenticatedDashboardExplainerRoute
+  '/dashboard/history': typeof AuthenticatedDashboardHistoryRoute
+  '/dashboard/quiz': typeof AuthenticatedDashboardQuizRoute
+  '/dashboard/reminders': typeof AuthenticatedDashboardRemindersRoute
+  '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
   '/dashboard/summarize': typeof AuthenticatedDashboardSummarizeRoute
+  '/dashboard/tasks': typeof AuthenticatedDashboardTasksRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesById {
@@ -77,8 +140,15 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteRouteWithChildren
+  '/_authenticated/dashboard/analytics': typeof AuthenticatedDashboardAnalyticsRoute
   '/_authenticated/dashboard/chat': typeof AuthenticatedDashboardChatRoute
+  '/_authenticated/dashboard/explainer': typeof AuthenticatedDashboardExplainerRoute
+  '/_authenticated/dashboard/history': typeof AuthenticatedDashboardHistoryRoute
+  '/_authenticated/dashboard/quiz': typeof AuthenticatedDashboardQuizRoute
+  '/_authenticated/dashboard/reminders': typeof AuthenticatedDashboardRemindersRoute
+  '/_authenticated/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
   '/_authenticated/dashboard/summarize': typeof AuthenticatedDashboardSummarizeRoute
+  '/_authenticated/dashboard/tasks': typeof AuthenticatedDashboardTasksRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRouteTypes {
@@ -87,19 +157,45 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/dashboard/analytics'
     | '/dashboard/chat'
+    | '/dashboard/explainer'
+    | '/dashboard/history'
+    | '/dashboard/quiz'
+    | '/dashboard/reminders'
+    | '/dashboard/settings'
     | '/dashboard/summarize'
+    | '/dashboard/tasks'
     | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/dashboard/chat' | '/dashboard/summarize' | '/dashboard'
+  to:
+    | '/'
+    | '/auth'
+    | '/dashboard/analytics'
+    | '/dashboard/chat'
+    | '/dashboard/explainer'
+    | '/dashboard/history'
+    | '/dashboard/quiz'
+    | '/dashboard/reminders'
+    | '/dashboard/settings'
+    | '/dashboard/summarize'
+    | '/dashboard/tasks'
+    | '/dashboard'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
     | '/_authenticated/dashboard'
+    | '/_authenticated/dashboard/analytics'
     | '/_authenticated/dashboard/chat'
+    | '/_authenticated/dashboard/explainer'
+    | '/_authenticated/dashboard/history'
+    | '/_authenticated/dashboard/quiz'
+    | '/_authenticated/dashboard/reminders'
+    | '/_authenticated/dashboard/settings'
     | '/_authenticated/dashboard/summarize'
+    | '/_authenticated/dashboard/tasks'
     | '/_authenticated/dashboard/'
   fileRoutesById: FileRoutesById
 }
@@ -146,11 +242,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
       parentRoute: typeof AuthenticatedDashboardRouteRoute
     }
+    '/_authenticated/dashboard/tasks': {
+      id: '/_authenticated/dashboard/tasks'
+      path: '/tasks'
+      fullPath: '/dashboard/tasks'
+      preLoaderRoute: typeof AuthenticatedDashboardTasksRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
     '/_authenticated/dashboard/summarize': {
       id: '/_authenticated/dashboard/summarize'
       path: '/summarize'
       fullPath: '/dashboard/summarize'
       preLoaderRoute: typeof AuthenticatedDashboardSummarizeRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
+    '/_authenticated/dashboard/settings': {
+      id: '/_authenticated/dashboard/settings'
+      path: '/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof AuthenticatedDashboardSettingsRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
+    '/_authenticated/dashboard/reminders': {
+      id: '/_authenticated/dashboard/reminders'
+      path: '/reminders'
+      fullPath: '/dashboard/reminders'
+      preLoaderRoute: typeof AuthenticatedDashboardRemindersRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
+    '/_authenticated/dashboard/quiz': {
+      id: '/_authenticated/dashboard/quiz'
+      path: '/quiz'
+      fullPath: '/dashboard/quiz'
+      preLoaderRoute: typeof AuthenticatedDashboardQuizRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
+    '/_authenticated/dashboard/history': {
+      id: '/_authenticated/dashboard/history'
+      path: '/history'
+      fullPath: '/dashboard/history'
+      preLoaderRoute: typeof AuthenticatedDashboardHistoryRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
+    '/_authenticated/dashboard/explainer': {
+      id: '/_authenticated/dashboard/explainer'
+      path: '/explainer'
+      fullPath: '/dashboard/explainer'
+      preLoaderRoute: typeof AuthenticatedDashboardExplainerRouteImport
       parentRoute: typeof AuthenticatedDashboardRouteRoute
     }
     '/_authenticated/dashboard/chat': {
@@ -160,19 +298,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardChatRouteImport
       parentRoute: typeof AuthenticatedDashboardRouteRoute
     }
+    '/_authenticated/dashboard/analytics': {
+      id: '/_authenticated/dashboard/analytics'
+      path: '/analytics'
+      fullPath: '/dashboard/analytics'
+      preLoaderRoute: typeof AuthenticatedDashboardAnalyticsRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
   }
 }
 
 interface AuthenticatedDashboardRouteRouteChildren {
+  AuthenticatedDashboardAnalyticsRoute: typeof AuthenticatedDashboardAnalyticsRoute
   AuthenticatedDashboardChatRoute: typeof AuthenticatedDashboardChatRoute
+  AuthenticatedDashboardExplainerRoute: typeof AuthenticatedDashboardExplainerRoute
+  AuthenticatedDashboardHistoryRoute: typeof AuthenticatedDashboardHistoryRoute
+  AuthenticatedDashboardQuizRoute: typeof AuthenticatedDashboardQuizRoute
+  AuthenticatedDashboardRemindersRoute: typeof AuthenticatedDashboardRemindersRoute
+  AuthenticatedDashboardSettingsRoute: typeof AuthenticatedDashboardSettingsRoute
   AuthenticatedDashboardSummarizeRoute: typeof AuthenticatedDashboardSummarizeRoute
+  AuthenticatedDashboardTasksRoute: typeof AuthenticatedDashboardTasksRoute
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
 }
 
 const AuthenticatedDashboardRouteRouteChildren: AuthenticatedDashboardRouteRouteChildren =
   {
+    AuthenticatedDashboardAnalyticsRoute: AuthenticatedDashboardAnalyticsRoute,
     AuthenticatedDashboardChatRoute: AuthenticatedDashboardChatRoute,
+    AuthenticatedDashboardExplainerRoute: AuthenticatedDashboardExplainerRoute,
+    AuthenticatedDashboardHistoryRoute: AuthenticatedDashboardHistoryRoute,
+    AuthenticatedDashboardQuizRoute: AuthenticatedDashboardQuizRoute,
+    AuthenticatedDashboardRemindersRoute: AuthenticatedDashboardRemindersRoute,
+    AuthenticatedDashboardSettingsRoute: AuthenticatedDashboardSettingsRoute,
     AuthenticatedDashboardSummarizeRoute: AuthenticatedDashboardSummarizeRoute,
+    AuthenticatedDashboardTasksRoute: AuthenticatedDashboardTasksRoute,
     AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
   }
 
