@@ -133,6 +133,89 @@ export type Database = {
         }
         Relationships: []
       }
+      quiz_attempts: {
+        Row: {
+          answers: Json
+          created_at: string
+          id: string
+          quiz_id: string
+          score: number
+          total: number
+          user_id: string
+        }
+        Insert: {
+          answers: Json
+          created_at?: string
+          id?: string
+          quiz_id: string
+          score: number
+          total: number
+          user_id: string
+        }
+        Update: {
+          answers?: Json
+          created_at?: string
+          id?: string
+          quiz_id?: string
+          score?: number
+          total?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quiz_attempts_quiz_id_fkey"
+            columns: ["quiz_id"]
+            isOneToOne: false
+            referencedRelation: "quizzes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      quizzes: {
+        Row: {
+          attempts_count: number
+          best_score: number | null
+          created_at: string
+          difficulty: string
+          id: string
+          last_score: number | null
+          questions: Json
+          source_text: string | null
+          title: string
+          topic: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          attempts_count?: number
+          best_score?: number | null
+          created_at?: string
+          difficulty?: string
+          id?: string
+          last_score?: number | null
+          questions: Json
+          source_text?: string | null
+          title?: string
+          topic?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          attempts_count?: number
+          best_score?: number | null
+          created_at?: string
+          difficulty?: string
+          id?: string
+          last_score?: number | null
+          questions?: Json
+          source_text?: string | null
+          title?: string
+          topic?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
