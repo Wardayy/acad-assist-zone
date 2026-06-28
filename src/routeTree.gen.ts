@@ -19,6 +19,7 @@ import { Route as AuthenticatedDashboardSummarizeRouteImport } from './routes/_a
 import { Route as AuthenticatedDashboardSettingsRouteImport } from './routes/_authenticated/dashboard/settings'
 import { Route as AuthenticatedDashboardRemindersRouteImport } from './routes/_authenticated/dashboard/reminders'
 import { Route as AuthenticatedDashboardQuizRouteImport } from './routes/_authenticated/dashboard/quiz'
+import { Route as AuthenticatedDashboardPlannerRouteImport } from './routes/_authenticated/dashboard/planner'
 import { Route as AuthenticatedDashboardHistoryRouteImport } from './routes/_authenticated/dashboard/history'
 import { Route as AuthenticatedDashboardExplainerRouteImport } from './routes/_authenticated/dashboard/explainer'
 import { Route as AuthenticatedDashboardChatRouteImport } from './routes/_authenticated/dashboard/chat'
@@ -80,6 +81,12 @@ const AuthenticatedDashboardQuizRoute =
     path: '/quiz',
     getParentRoute: () => AuthenticatedDashboardRouteRoute,
   } as any)
+const AuthenticatedDashboardPlannerRoute =
+  AuthenticatedDashboardPlannerRouteImport.update({
+    id: '/planner',
+    path: '/planner',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
 const AuthenticatedDashboardHistoryRoute =
   AuthenticatedDashboardHistoryRouteImport.update({
     id: '/history',
@@ -113,6 +120,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/chat': typeof AuthenticatedDashboardChatRoute
   '/dashboard/explainer': typeof AuthenticatedDashboardExplainerRoute
   '/dashboard/history': typeof AuthenticatedDashboardHistoryRoute
+  '/dashboard/planner': typeof AuthenticatedDashboardPlannerRoute
   '/dashboard/quiz': typeof AuthenticatedDashboardQuizRoute
   '/dashboard/reminders': typeof AuthenticatedDashboardRemindersRoute
   '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
@@ -127,6 +135,7 @@ export interface FileRoutesByTo {
   '/dashboard/chat': typeof AuthenticatedDashboardChatRoute
   '/dashboard/explainer': typeof AuthenticatedDashboardExplainerRoute
   '/dashboard/history': typeof AuthenticatedDashboardHistoryRoute
+  '/dashboard/planner': typeof AuthenticatedDashboardPlannerRoute
   '/dashboard/quiz': typeof AuthenticatedDashboardQuizRoute
   '/dashboard/reminders': typeof AuthenticatedDashboardRemindersRoute
   '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
@@ -144,6 +153,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard/chat': typeof AuthenticatedDashboardChatRoute
   '/_authenticated/dashboard/explainer': typeof AuthenticatedDashboardExplainerRoute
   '/_authenticated/dashboard/history': typeof AuthenticatedDashboardHistoryRoute
+  '/_authenticated/dashboard/planner': typeof AuthenticatedDashboardPlannerRoute
   '/_authenticated/dashboard/quiz': typeof AuthenticatedDashboardQuizRoute
   '/_authenticated/dashboard/reminders': typeof AuthenticatedDashboardRemindersRoute
   '/_authenticated/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
@@ -161,6 +171,7 @@ export interface FileRouteTypes {
     | '/dashboard/chat'
     | '/dashboard/explainer'
     | '/dashboard/history'
+    | '/dashboard/planner'
     | '/dashboard/quiz'
     | '/dashboard/reminders'
     | '/dashboard/settings'
@@ -175,6 +186,7 @@ export interface FileRouteTypes {
     | '/dashboard/chat'
     | '/dashboard/explainer'
     | '/dashboard/history'
+    | '/dashboard/planner'
     | '/dashboard/quiz'
     | '/dashboard/reminders'
     | '/dashboard/settings'
@@ -191,6 +203,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard/chat'
     | '/_authenticated/dashboard/explainer'
     | '/_authenticated/dashboard/history'
+    | '/_authenticated/dashboard/planner'
     | '/_authenticated/dashboard/quiz'
     | '/_authenticated/dashboard/reminders'
     | '/_authenticated/dashboard/settings'
@@ -277,6 +290,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardQuizRouteImport
       parentRoute: typeof AuthenticatedDashboardRouteRoute
     }
+    '/_authenticated/dashboard/planner': {
+      id: '/_authenticated/dashboard/planner'
+      path: '/planner'
+      fullPath: '/dashboard/planner'
+      preLoaderRoute: typeof AuthenticatedDashboardPlannerRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
     '/_authenticated/dashboard/history': {
       id: '/_authenticated/dashboard/history'
       path: '/history'
@@ -313,6 +333,7 @@ interface AuthenticatedDashboardRouteRouteChildren {
   AuthenticatedDashboardChatRoute: typeof AuthenticatedDashboardChatRoute
   AuthenticatedDashboardExplainerRoute: typeof AuthenticatedDashboardExplainerRoute
   AuthenticatedDashboardHistoryRoute: typeof AuthenticatedDashboardHistoryRoute
+  AuthenticatedDashboardPlannerRoute: typeof AuthenticatedDashboardPlannerRoute
   AuthenticatedDashboardQuizRoute: typeof AuthenticatedDashboardQuizRoute
   AuthenticatedDashboardRemindersRoute: typeof AuthenticatedDashboardRemindersRoute
   AuthenticatedDashboardSettingsRoute: typeof AuthenticatedDashboardSettingsRoute
@@ -327,6 +348,7 @@ const AuthenticatedDashboardRouteRouteChildren: AuthenticatedDashboardRouteRoute
     AuthenticatedDashboardChatRoute: AuthenticatedDashboardChatRoute,
     AuthenticatedDashboardExplainerRoute: AuthenticatedDashboardExplainerRoute,
     AuthenticatedDashboardHistoryRoute: AuthenticatedDashboardHistoryRoute,
+    AuthenticatedDashboardPlannerRoute: AuthenticatedDashboardPlannerRoute,
     AuthenticatedDashboardQuizRoute: AuthenticatedDashboardQuizRoute,
     AuthenticatedDashboardRemindersRoute: AuthenticatedDashboardRemindersRoute,
     AuthenticatedDashboardSettingsRoute: AuthenticatedDashboardSettingsRoute,
