@@ -252,6 +252,69 @@ export type Database = {
         }
         Relationships: []
       }
+      study_tasks: {
+        Row: {
+          ai_suggestions: Json | null
+          category: string
+          completed: boolean
+          completed_at: string | null
+          created_at: string
+          description: string | null
+          difficulty: string
+          duration_minutes: number
+          id: string
+          priority: string
+          reminder_enabled: boolean
+          reminder_minutes_before: number
+          study_date: string
+          study_time: string
+          subject: string
+          topic: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          ai_suggestions?: Json | null
+          category?: string
+          completed?: boolean
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          difficulty?: string
+          duration_minutes?: number
+          id?: string
+          priority?: string
+          reminder_enabled?: boolean
+          reminder_minutes_before?: number
+          study_date: string
+          study_time: string
+          subject: string
+          topic: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          ai_suggestions?: Json | null
+          category?: string
+          completed?: boolean
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          difficulty?: string
+          duration_minutes?: number
+          id?: string
+          priority?: string
+          reminder_enabled?: boolean
+          reminder_minutes_before?: number
+          study_date?: string
+          study_time?: string
+          subject?: string
+          topic?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
