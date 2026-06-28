@@ -1,7 +1,7 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import {
   FileText, Brain, Lightbulb, MessageCircle, Bell, ListChecks, History, BarChart3,
-  Settings, Sparkles, LogOut, User, Menu, X,
+  Settings, Sparkles, LogOut, User, Menu, X, CalendarDays,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
