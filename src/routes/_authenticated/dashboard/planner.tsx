@@ -415,7 +415,12 @@ function categoryLabel(c: string) {
   return CATEGORIES.find((x) => x.v === c)?.label ?? c;
 }
 
-function ListView({ tasks, today, now, onToggle, onEdit, onDelete, onDuplicate, onReschedule, onOpenSuggestions }: any) {
+function ListView({ tasks, today, now, onToggle, onEdit, onDelete, onDuplicate, onReschedule, onOpenSuggestions }: {
+  tasks: Task[]; today: string; now: Date;
+  onToggle: (t: Task) => void; onEdit: (t: Task) => void;
+  onDelete: (id: string) => void; onDuplicate: (id: string) => void;
+  onReschedule: (t: Task) => void; onOpenSuggestions: (t: Task) => void;
+}) {
   if (!tasks.length) {
     return (
       <div className="rounded-3xl bg-card border border-dashed border-border p-12 text-center text-muted-foreground">
