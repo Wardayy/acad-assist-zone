@@ -70,6 +70,42 @@ export type Database = {
           },
         ]
       }
+      learning_explanations: {
+        Row: {
+          created_at: string
+          difficulty: string
+          explanation: string
+          id: string
+          input: string
+          learning_mode: string
+          options: Json
+          response_length: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          difficulty: string
+          explanation: string
+          id?: string
+          input: string
+          learning_mode: string
+          options?: Json
+          response_length: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          difficulty?: string
+          explanation?: string
+          id?: string
+          input?: string
+          learning_mode?: string
+          options?: Json
+          response_length?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       notes_summaries: {
         Row: {
           created_at: string

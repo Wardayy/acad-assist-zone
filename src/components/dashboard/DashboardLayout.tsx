@@ -1,6 +1,6 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import {
-  FileText, Brain, BookOpen, MessageCircle, Bell, ListChecks, History, BarChart3,
+  FileText, Brain, Lightbulb, MessageCircle, Bell, ListChecks, History, BarChart3,
   Settings, Sparkles, LogOut, User, Menu, X,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
@@ -13,7 +13,7 @@ const nav = [
   { to: "/dashboard/chat", label: "AI Study Chatbot", icon: MessageCircle },
   { to: "/dashboard/summarize", label: "Notes Summarizer", icon: FileText },
   { to: "/dashboard/quiz", label: "Quiz Generator", icon: Brain },
-  { to: "/dashboard/explainer", label: "Topic Explainer", icon: BookOpen },
+  { to: "/dashboard/explainer", label: "AI Learning Mode", icon: Lightbulb },
   { to: "/dashboard/reminders", label: "Reminders", icon: Bell },
   { to: "/dashboard/tasks", label: "Task Catalog", icon: ListChecks },
   { to: "/dashboard/history", label: "Learning History", icon: History },
