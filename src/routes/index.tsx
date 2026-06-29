@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Sparkles, BookOpen, Brain, ListChecks, MessageCircle, BarChart3, Bell, FileText } from "lucide-react";
+import { Sparkles, BookOpen, Brain, ListChecks, MessageCircle, BarChart3, FileText } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -16,7 +16,7 @@ const features = [
   { icon: Brain, title: "Quiz Generator", desc: "MCQs, true/false and short questions from any text." },
   { icon: BookOpen, title: "Topic Explainer", desc: "Friendly explanations adapted to your level." },
   { icon: MessageCircle, title: "AI Study Chatbot", desc: "A tutor that knows your subjects and goals." },
-  { icon: Bell, title: "Smart Reminders", desc: "Never miss an exam, quiz or assignment." },
+  { icon: ListChecks, title: "Study Planner", desc: "Schedule exams, quizzes and assignments with reminders." },
   { icon: ListChecks, title: "Task Catalog", desc: "Your daily study journal & to-do list." },
   { icon: BarChart3, title: "Study Analytics", desc: "See your streaks, scores and study time." },
   { icon: Sparkles, title: "Personalized AI", desc: "Adapts to your subjects, language and goals." },
