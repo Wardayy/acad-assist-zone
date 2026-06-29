@@ -15,7 +15,6 @@ const nav = [
   { to: "/dashboard/quiz", label: "Quiz Generator", icon: Brain },
   { to: "/dashboard/explainer", label: "AI Learning Mode", icon: Lightbulb },
   { to: "/dashboard/planner", label: "Study Planner", icon: CalendarDays },
-  { to: "/dashboard/reminders", label: "Reminders", icon: Bell },
   { to: "/dashboard/tasks", label: "Task Catalog", icon: ListChecks },
   { to: "/dashboard/history", label: "Learning History", icon: History },
   { to: "/dashboard/analytics", label: "Analytics", icon: BarChart3 },
