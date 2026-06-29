@@ -17,7 +17,6 @@ import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authe
 import { Route as AuthenticatedDashboardTasksRouteImport } from './routes/_authenticated/dashboard/tasks'
 import { Route as AuthenticatedDashboardSummarizeRouteImport } from './routes/_authenticated/dashboard/summarize'
 import { Route as AuthenticatedDashboardSettingsRouteImport } from './routes/_authenticated/dashboard/settings'
-import { Route as AuthenticatedDashboardRemindersRouteImport } from './routes/_authenticated/dashboard/reminders'
 import { Route as AuthenticatedDashboardQuizRouteImport } from './routes/_authenticated/dashboard/quiz'
 import { Route as AuthenticatedDashboardPlannerRouteImport } from './routes/_authenticated/dashboard/planner'
 import { Route as AuthenticatedDashboardHistoryRouteImport } from './routes/_authenticated/dashboard/history'
@@ -69,12 +68,6 @@ const AuthenticatedDashboardSettingsRoute =
     path: '/settings',
     getParentRoute: () => AuthenticatedDashboardRouteRoute,
   } as any)
-const AuthenticatedDashboardRemindersRoute =
-  AuthenticatedDashboardRemindersRouteImport.update({
-    id: '/reminders',
-    path: '/reminders',
-    getParentRoute: () => AuthenticatedDashboardRouteRoute,
-  } as any)
 const AuthenticatedDashboardQuizRoute =
   AuthenticatedDashboardQuizRouteImport.update({
     id: '/quiz',
@@ -122,7 +115,6 @@ export interface FileRoutesByFullPath {
   '/dashboard/history': typeof AuthenticatedDashboardHistoryRoute
   '/dashboard/planner': typeof AuthenticatedDashboardPlannerRoute
   '/dashboard/quiz': typeof AuthenticatedDashboardQuizRoute
-  '/dashboard/reminders': typeof AuthenticatedDashboardRemindersRoute
   '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
   '/dashboard/summarize': typeof AuthenticatedDashboardSummarizeRoute
   '/dashboard/tasks': typeof AuthenticatedDashboardTasksRoute
@@ -137,7 +129,6 @@ export interface FileRoutesByTo {
   '/dashboard/history': typeof AuthenticatedDashboardHistoryRoute
   '/dashboard/planner': typeof AuthenticatedDashboardPlannerRoute
   '/dashboard/quiz': typeof AuthenticatedDashboardQuizRoute
-  '/dashboard/reminders': typeof AuthenticatedDashboardRemindersRoute
   '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
   '/dashboard/summarize': typeof AuthenticatedDashboardSummarizeRoute
   '/dashboard/tasks': typeof AuthenticatedDashboardTasksRoute
@@ -155,7 +146,6 @@ export interface FileRoutesById {
   '/_authenticated/dashboard/history': typeof AuthenticatedDashboardHistoryRoute
   '/_authenticated/dashboard/planner': typeof AuthenticatedDashboardPlannerRoute
   '/_authenticated/dashboard/quiz': typeof AuthenticatedDashboardQuizRoute
-  '/_authenticated/dashboard/reminders': typeof AuthenticatedDashboardRemindersRoute
   '/_authenticated/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
   '/_authenticated/dashboard/summarize': typeof AuthenticatedDashboardSummarizeRoute
   '/_authenticated/dashboard/tasks': typeof AuthenticatedDashboardTasksRoute
@@ -173,7 +163,6 @@ export interface FileRouteTypes {
     | '/dashboard/history'
     | '/dashboard/planner'
     | '/dashboard/quiz'
-    | '/dashboard/reminders'
     | '/dashboard/settings'
     | '/dashboard/summarize'
     | '/dashboard/tasks'
@@ -188,7 +177,6 @@ export interface FileRouteTypes {
     | '/dashboard/history'
     | '/dashboard/planner'
     | '/dashboard/quiz'
-    | '/dashboard/reminders'
     | '/dashboard/settings'
     | '/dashboard/summarize'
     | '/dashboard/tasks'
@@ -205,7 +193,6 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard/history'
     | '/_authenticated/dashboard/planner'
     | '/_authenticated/dashboard/quiz'
-    | '/_authenticated/dashboard/reminders'
     | '/_authenticated/dashboard/settings'
     | '/_authenticated/dashboard/summarize'
     | '/_authenticated/dashboard/tasks'
@@ -276,13 +263,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardSettingsRouteImport
       parentRoute: typeof AuthenticatedDashboardRouteRoute
     }
-    '/_authenticated/dashboard/reminders': {
-      id: '/_authenticated/dashboard/reminders'
-      path: '/reminders'
-      fullPath: '/dashboard/reminders'
-      preLoaderRoute: typeof AuthenticatedDashboardRemindersRouteImport
-      parentRoute: typeof AuthenticatedDashboardRouteRoute
-    }
     '/_authenticated/dashboard/quiz': {
       id: '/_authenticated/dashboard/quiz'
       path: '/quiz'
@@ -335,7 +315,6 @@ interface AuthenticatedDashboardRouteRouteChildren {
   AuthenticatedDashboardHistoryRoute: typeof AuthenticatedDashboardHistoryRoute
   AuthenticatedDashboardPlannerRoute: typeof AuthenticatedDashboardPlannerRoute
   AuthenticatedDashboardQuizRoute: typeof AuthenticatedDashboardQuizRoute
-  AuthenticatedDashboardRemindersRoute: typeof AuthenticatedDashboardRemindersRoute
   AuthenticatedDashboardSettingsRoute: typeof AuthenticatedDashboardSettingsRoute
   AuthenticatedDashboardSummarizeRoute: typeof AuthenticatedDashboardSummarizeRoute
   AuthenticatedDashboardTasksRoute: typeof AuthenticatedDashboardTasksRoute
@@ -350,7 +329,6 @@ const AuthenticatedDashboardRouteRouteChildren: AuthenticatedDashboardRouteRoute
     AuthenticatedDashboardHistoryRoute: AuthenticatedDashboardHistoryRoute,
     AuthenticatedDashboardPlannerRoute: AuthenticatedDashboardPlannerRoute,
     AuthenticatedDashboardQuizRoute: AuthenticatedDashboardQuizRoute,
-    AuthenticatedDashboardRemindersRoute: AuthenticatedDashboardRemindersRoute,
     AuthenticatedDashboardSettingsRoute: AuthenticatedDashboardSettingsRoute,
     AuthenticatedDashboardSummarizeRoute: AuthenticatedDashboardSummarizeRoute,
     AuthenticatedDashboardTasksRoute: AuthenticatedDashboardTasksRoute,
@@ -382,13 +360,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
