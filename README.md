@@ -1,7 +1,9 @@
 # AI Study Assistant(StudyBloom-AI)
 
 An AI-powered web application designed to help students learn more efficiently through intelligent study tools, personalized assistance, and AI-driven learning support.
-Live Demo:studybloom-ai.vercel.app
+
+
+## Live Demo:studybloom-ai.vercel.app
 
 ---
 
