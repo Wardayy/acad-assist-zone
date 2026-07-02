@@ -162,10 +162,15 @@
 
 @layer utilities {
   .glass {
-    background: color-mix(in oklab, white 70%, transparent);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: color-mix(in oklab, white 78%, transparent);
+    backdrop-filter: blur(8px);
     border: 1px solid color-mix(in oklab, var(--primary) 12%, transparent);
+  }
+  @media (min-width: 768px) {
+    .glass {
+      background: color-mix(in oklab, white 70%, transparent);
+      backdrop-filter: blur(16px);
+    }
   }
   .bg-gradient-hero { background-image: var(--gradient-hero); }
   .bg-gradient-primary { background-image: var(--gradient-primary); }
