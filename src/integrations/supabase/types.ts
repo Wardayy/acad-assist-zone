@@ -14,6 +14,98 @@ export type Database = {
   }
   public: {
     Tables: {
+      catalog_items: {
+        Row: {
+          archived: boolean
+          category: string
+          created_at: string
+          description: string | null
+          difficulty: string
+          explanation_id: string | null
+          favorite: boolean
+          id: string
+          last_studied_at: string | null
+          planner_task_id: string | null
+          quiz_id: string | null
+          status: string
+          subject: string
+          summary_id: string | null
+          tags: string[]
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          archived?: boolean
+          category?: string
+          created_at?: string
+          description?: string | null
+          difficulty?: string
+          explanation_id?: string | null
+          favorite?: boolean
+          id?: string
+          last_studied_at?: string | null
+          planner_task_id?: string | null
+          quiz_id?: string | null
+          status?: string
+          subject?: string
+          summary_id?: string | null
+          tags?: string[]
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          archived?: boolean
+          category?: string
+          created_at?: string
+          description?: string | null
+          difficulty?: string
+          explanation_id?: string | null
+          favorite?: boolean
+          id?: string
+          last_studied_at?: string | null
+          planner_task_id?: string | null
+          quiz_id?: string | null
+          status?: string
+          subject?: string
+          summary_id?: string | null
+          tags?: string[]
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "catalog_items_explanation_id_fkey"
+            columns: ["explanation_id"]
+            isOneToOne: false
+            referencedRelation: "learning_explanations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "catalog_items_planner_task_id_fkey"
+            columns: ["planner_task_id"]
+            isOneToOne: false
+            referencedRelation: "study_tasks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "catalog_items_quiz_id_fkey"
+            columns: ["quiz_id"]
+            isOneToOne: false
+            referencedRelation: "quizzes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "catalog_items_summary_id_fkey"
+            columns: ["summary_id"]
+            isOneToOne: false
+            referencedRelation: "notes_summaries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       chat_conversations: {
         Row: {
           created_at: string
