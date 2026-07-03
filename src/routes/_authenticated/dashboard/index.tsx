@@ -4,7 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { getProfile } from "@/lib/profile.functions";
 import { FileText, Brain, BookOpen, MessageCircle, CalendarDays, ListChecks, BarChart3, Sparkles } from "lucide-react";
 
-export const Route = createFileRoute("/_authenticated/dashboard/")({
+export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({ meta: [{ title: "Dashboard — StudyBloom AI" }] }),
   component: DashboardHome,
 });
