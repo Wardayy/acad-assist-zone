@@ -125,19 +125,9 @@ function AuthPage() {
             {isSignup ? "A few details so the AI can personalize your study." : "Sign in to continue learning."}
           </p>
 
-          <button
-            onClick={onGoogle}
-            disabled={loading}
-            className="mt-6 w-full rounded-2xl border border-border bg-card py-3 text-sm font-medium hover:bg-accent transition-colors flex items-center justify-center gap-2 shadow-card disabled:opacity-50"
-          >
-            <GoogleIcon /> Continue with Google
-          </button>
+          <div className="mt-6" />
 
-          <div className="flex items-center gap-3 my-6">
-            <div className="h-px flex-1 bg-border" />
-            <span className="text-xs text-muted-foreground">or with email</span>
-            <div className="h-px flex-1 bg-border" />
-          </div>
+
 
           <form onSubmit={onSubmit} className="space-y-4">
             {isSignup && (
