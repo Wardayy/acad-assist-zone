@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Sparkles, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable/index";
+
 import { EDUCATION_LEVELS, LANGUAGES, STUDY_GOALS, SUBJECTS } from "@/lib/study-options";
 
 type Search = { mode?: "signup" | "login" };
