@@ -90,23 +90,6 @@ function AuthPage() {
     }
   }
 
-  async function onGoogle() {
-    setLoading(true);
-    try {
-      const result = await lovable.auth.signInWithOAuth("google", {
-        redirect_uri: window.location.origin + "/dashboard",
-      });
-      if (result.error) {
-        toast.error(result.error.message ?? "Google sign-in failed");
-        return;
-      }
-      if (result.redirected) return;
-      navigate({ to: "/dashboard", replace: true });
-    } finally {
-      setLoading(false);
-    }
-  }
-
   return (
     <div className="min-h-screen grid lg:grid-cols-2">
       <aside className="hidden lg:flex relative bg-gradient-hero p-12 flex-col justify-between">
