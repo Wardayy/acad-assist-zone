@@ -18,6 +18,7 @@ import { Route as AuthenticatedDashboardSummarizeRouteImport } from './routes/_a
 import { Route as AuthenticatedDashboardSettingsRouteImport } from './routes/_authenticated/dashboard/settings'
 import { Route as AuthenticatedDashboardQuizRouteImport } from './routes/_authenticated/dashboard/quiz'
 import { Route as AuthenticatedDashboardPlannerRouteImport } from './routes/_authenticated/dashboard/planner'
+import { Route as AuthenticatedDashboardMathRouteImport } from './routes/_authenticated/dashboard/math'
 import { Route as AuthenticatedDashboardExplainerRouteImport } from './routes/_authenticated/dashboard/explainer'
 import { Route as AuthenticatedDashboardChatRouteImport } from './routes/_authenticated/dashboard/chat'
 import { Route as AuthenticatedDashboardAnalyticsRouteImport } from './routes/_authenticated/dashboard/analytics'
@@ -72,6 +73,12 @@ const AuthenticatedDashboardPlannerRoute =
     path: '/planner',
     getParentRoute: () => AuthenticatedDashboardRouteRoute,
   } as any)
+const AuthenticatedDashboardMathRoute =
+  AuthenticatedDashboardMathRouteImport.update({
+    id: '/math',
+    path: '/math',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
 const AuthenticatedDashboardExplainerRoute =
   AuthenticatedDashboardExplainerRouteImport.update({
     id: '/explainer',
@@ -98,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/analytics': typeof AuthenticatedDashboardAnalyticsRoute
   '/dashboard/chat': typeof AuthenticatedDashboardChatRoute
   '/dashboard/explainer': typeof AuthenticatedDashboardExplainerRoute
+  '/dashboard/math': typeof AuthenticatedDashboardMathRoute
   '/dashboard/planner': typeof AuthenticatedDashboardPlannerRoute
   '/dashboard/quiz': typeof AuthenticatedDashboardQuizRoute
   '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
@@ -110,6 +118,7 @@ export interface FileRoutesByTo {
   '/dashboard/analytics': typeof AuthenticatedDashboardAnalyticsRoute
   '/dashboard/chat': typeof AuthenticatedDashboardChatRoute
   '/dashboard/explainer': typeof AuthenticatedDashboardExplainerRoute
+  '/dashboard/math': typeof AuthenticatedDashboardMathRoute
   '/dashboard/planner': typeof AuthenticatedDashboardPlannerRoute
   '/dashboard/quiz': typeof AuthenticatedDashboardQuizRoute
   '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
@@ -125,6 +134,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard/analytics': typeof AuthenticatedDashboardAnalyticsRoute
   '/_authenticated/dashboard/chat': typeof AuthenticatedDashboardChatRoute
   '/_authenticated/dashboard/explainer': typeof AuthenticatedDashboardExplainerRoute
+  '/_authenticated/dashboard/math': typeof AuthenticatedDashboardMathRoute
   '/_authenticated/dashboard/planner': typeof AuthenticatedDashboardPlannerRoute
   '/_authenticated/dashboard/quiz': typeof AuthenticatedDashboardQuizRoute
   '/_authenticated/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
@@ -140,6 +150,7 @@ export interface FileRouteTypes {
     | '/dashboard/analytics'
     | '/dashboard/chat'
     | '/dashboard/explainer'
+    | '/dashboard/math'
     | '/dashboard/planner'
     | '/dashboard/quiz'
     | '/dashboard/settings'
@@ -152,6 +163,7 @@ export interface FileRouteTypes {
     | '/dashboard/analytics'
     | '/dashboard/chat'
     | '/dashboard/explainer'
+    | '/dashboard/math'
     | '/dashboard/planner'
     | '/dashboard/quiz'
     | '/dashboard/settings'
@@ -166,6 +178,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard/analytics'
     | '/_authenticated/dashboard/chat'
     | '/_authenticated/dashboard/explainer'
+    | '/_authenticated/dashboard/math'
     | '/_authenticated/dashboard/planner'
     | '/_authenticated/dashboard/quiz'
     | '/_authenticated/dashboard/settings'
@@ -244,6 +257,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardPlannerRouteImport
       parentRoute: typeof AuthenticatedDashboardRouteRoute
     }
+    '/_authenticated/dashboard/math': {
+      id: '/_authenticated/dashboard/math'
+      path: '/math'
+      fullPath: '/dashboard/math'
+      preLoaderRoute: typeof AuthenticatedDashboardMathRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
     '/_authenticated/dashboard/explainer': {
       id: '/_authenticated/dashboard/explainer'
       path: '/explainer'
@@ -272,6 +292,7 @@ interface AuthenticatedDashboardRouteRouteChildren {
   AuthenticatedDashboardAnalyticsRoute: typeof AuthenticatedDashboardAnalyticsRoute
   AuthenticatedDashboardChatRoute: typeof AuthenticatedDashboardChatRoute
   AuthenticatedDashboardExplainerRoute: typeof AuthenticatedDashboardExplainerRoute
+  AuthenticatedDashboardMathRoute: typeof AuthenticatedDashboardMathRoute
   AuthenticatedDashboardPlannerRoute: typeof AuthenticatedDashboardPlannerRoute
   AuthenticatedDashboardQuizRoute: typeof AuthenticatedDashboardQuizRoute
   AuthenticatedDashboardSettingsRoute: typeof AuthenticatedDashboardSettingsRoute
@@ -284,6 +305,7 @@ const AuthenticatedDashboardRouteRouteChildren: AuthenticatedDashboardRouteRoute
     AuthenticatedDashboardAnalyticsRoute: AuthenticatedDashboardAnalyticsRoute,
     AuthenticatedDashboardChatRoute: AuthenticatedDashboardChatRoute,
     AuthenticatedDashboardExplainerRoute: AuthenticatedDashboardExplainerRoute,
+    AuthenticatedDashboardMathRoute: AuthenticatedDashboardMathRoute,
     AuthenticatedDashboardPlannerRoute: AuthenticatedDashboardPlannerRoute,
     AuthenticatedDashboardQuizRoute: AuthenticatedDashboardQuizRoute,
     AuthenticatedDashboardSettingsRoute: AuthenticatedDashboardSettingsRoute,
