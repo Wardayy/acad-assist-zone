@@ -17,7 +17,6 @@ const features = [
   { icon: BookOpen, title: "Topic Explainer", desc: "Friendly explanations adapted to your level." },
   { icon: MessageCircle, title: "AI Study Chatbot", desc: "A tutor that knows your subjects and goals." },
   { icon: ListChecks, title: "Study Planner", desc: "Schedule exams, quizzes and assignments with reminders." },
-  { icon: ListChecks, title: "Task Catalog", desc: "Your daily study journal & to-do list." },
   { icon: BarChart3, title: "Study Analytics", desc: "See your streaks, scores and study time." },
   { icon: Sparkles, title: "Personalized AI", desc: "Adapts to your subjects, language and goals." },
 ];
