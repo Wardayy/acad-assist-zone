@@ -14,12 +14,10 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedDashboardRouteRouteImport } from './routes/_authenticated/dashboard/route'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
-import { Route as AuthenticatedDashboardTasksRouteImport } from './routes/_authenticated/dashboard/tasks'
 import { Route as AuthenticatedDashboardSummarizeRouteImport } from './routes/_authenticated/dashboard/summarize'
 import { Route as AuthenticatedDashboardSettingsRouteImport } from './routes/_authenticated/dashboard/settings'
 import { Route as AuthenticatedDashboardQuizRouteImport } from './routes/_authenticated/dashboard/quiz'
 import { Route as AuthenticatedDashboardPlannerRouteImport } from './routes/_authenticated/dashboard/planner'
-import { Route as AuthenticatedDashboardHistoryRouteImport } from './routes/_authenticated/dashboard/history'
 import { Route as AuthenticatedDashboardExplainerRouteImport } from './routes/_authenticated/dashboard/explainer'
 import { Route as AuthenticatedDashboardChatRouteImport } from './routes/_authenticated/dashboard/chat'
 import { Route as AuthenticatedDashboardAnalyticsRouteImport } from './routes/_authenticated/dashboard/analytics'
@@ -50,12 +48,6 @@ const AuthenticatedDashboardIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedDashboardRouteRoute,
   } as any)
-const AuthenticatedDashboardTasksRoute =
-  AuthenticatedDashboardTasksRouteImport.update({
-    id: '/tasks',
-    path: '/tasks',
-    getParentRoute: () => AuthenticatedDashboardRouteRoute,
-  } as any)
 const AuthenticatedDashboardSummarizeRoute =
   AuthenticatedDashboardSummarizeRouteImport.update({
     id: '/summarize',
@@ -78,12 +70,6 @@ const AuthenticatedDashboardPlannerRoute =
   AuthenticatedDashboardPlannerRouteImport.update({
     id: '/planner',
     path: '/planner',
-    getParentRoute: () => AuthenticatedDashboardRouteRoute,
-  } as any)
-const AuthenticatedDashboardHistoryRoute =
-  AuthenticatedDashboardHistoryRouteImport.update({
-    id: '/history',
-    path: '/history',
     getParentRoute: () => AuthenticatedDashboardRouteRoute,
   } as any)
 const AuthenticatedDashboardExplainerRoute =
@@ -112,12 +98,10 @@ export interface FileRoutesByFullPath {
   '/dashboard/analytics': typeof AuthenticatedDashboardAnalyticsRoute
   '/dashboard/chat': typeof AuthenticatedDashboardChatRoute
   '/dashboard/explainer': typeof AuthenticatedDashboardExplainerRoute
-  '/dashboard/history': typeof AuthenticatedDashboardHistoryRoute
   '/dashboard/planner': typeof AuthenticatedDashboardPlannerRoute
   '/dashboard/quiz': typeof AuthenticatedDashboardQuizRoute
   '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
   '/dashboard/summarize': typeof AuthenticatedDashboardSummarizeRoute
-  '/dashboard/tasks': typeof AuthenticatedDashboardTasksRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesByTo {
@@ -126,12 +110,10 @@ export interface FileRoutesByTo {
   '/dashboard/analytics': typeof AuthenticatedDashboardAnalyticsRoute
   '/dashboard/chat': typeof AuthenticatedDashboardChatRoute
   '/dashboard/explainer': typeof AuthenticatedDashboardExplainerRoute
-  '/dashboard/history': typeof AuthenticatedDashboardHistoryRoute
   '/dashboard/planner': typeof AuthenticatedDashboardPlannerRoute
   '/dashboard/quiz': typeof AuthenticatedDashboardQuizRoute
   '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
   '/dashboard/summarize': typeof AuthenticatedDashboardSummarizeRoute
-  '/dashboard/tasks': typeof AuthenticatedDashboardTasksRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesById {
@@ -143,12 +125,10 @@ export interface FileRoutesById {
   '/_authenticated/dashboard/analytics': typeof AuthenticatedDashboardAnalyticsRoute
   '/_authenticated/dashboard/chat': typeof AuthenticatedDashboardChatRoute
   '/_authenticated/dashboard/explainer': typeof AuthenticatedDashboardExplainerRoute
-  '/_authenticated/dashboard/history': typeof AuthenticatedDashboardHistoryRoute
   '/_authenticated/dashboard/planner': typeof AuthenticatedDashboardPlannerRoute
   '/_authenticated/dashboard/quiz': typeof AuthenticatedDashboardQuizRoute
   '/_authenticated/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
   '/_authenticated/dashboard/summarize': typeof AuthenticatedDashboardSummarizeRoute
-  '/_authenticated/dashboard/tasks': typeof AuthenticatedDashboardTasksRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRouteTypes {
@@ -160,12 +140,10 @@ export interface FileRouteTypes {
     | '/dashboard/analytics'
     | '/dashboard/chat'
     | '/dashboard/explainer'
-    | '/dashboard/history'
     | '/dashboard/planner'
     | '/dashboard/quiz'
     | '/dashboard/settings'
     | '/dashboard/summarize'
-    | '/dashboard/tasks'
     | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -174,12 +152,10 @@ export interface FileRouteTypes {
     | '/dashboard/analytics'
     | '/dashboard/chat'
     | '/dashboard/explainer'
-    | '/dashboard/history'
     | '/dashboard/planner'
     | '/dashboard/quiz'
     | '/dashboard/settings'
     | '/dashboard/summarize'
-    | '/dashboard/tasks'
     | '/dashboard'
   id:
     | '__root__'
@@ -190,12 +166,10 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard/analytics'
     | '/_authenticated/dashboard/chat'
     | '/_authenticated/dashboard/explainer'
-    | '/_authenticated/dashboard/history'
     | '/_authenticated/dashboard/planner'
     | '/_authenticated/dashboard/quiz'
     | '/_authenticated/dashboard/settings'
     | '/_authenticated/dashboard/summarize'
-    | '/_authenticated/dashboard/tasks'
     | '/_authenticated/dashboard/'
   fileRoutesById: FileRoutesById
 }
@@ -242,13 +216,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
       parentRoute: typeof AuthenticatedDashboardRouteRoute
     }
-    '/_authenticated/dashboard/tasks': {
-      id: '/_authenticated/dashboard/tasks'
-      path: '/tasks'
-      fullPath: '/dashboard/tasks'
-      preLoaderRoute: typeof AuthenticatedDashboardTasksRouteImport
-      parentRoute: typeof AuthenticatedDashboardRouteRoute
-    }
     '/_authenticated/dashboard/summarize': {
       id: '/_authenticated/dashboard/summarize'
       path: '/summarize'
@@ -275,13 +242,6 @@ declare module '@tanstack/react-router' {
       path: '/planner'
       fullPath: '/dashboard/planner'
       preLoaderRoute: typeof AuthenticatedDashboardPlannerRouteImport
-      parentRoute: typeof AuthenticatedDashboardRouteRoute
-    }
-    '/_authenticated/dashboard/history': {
-      id: '/_authenticated/dashboard/history'
-      path: '/history'
-      fullPath: '/dashboard/history'
-      preLoaderRoute: typeof AuthenticatedDashboardHistoryRouteImport
       parentRoute: typeof AuthenticatedDashboardRouteRoute
     }
     '/_authenticated/dashboard/explainer': {
@@ -312,12 +272,10 @@ interface AuthenticatedDashboardRouteRouteChildren {
   AuthenticatedDashboardAnalyticsRoute: typeof AuthenticatedDashboardAnalyticsRoute
   AuthenticatedDashboardChatRoute: typeof AuthenticatedDashboardChatRoute
   AuthenticatedDashboardExplainerRoute: typeof AuthenticatedDashboardExplainerRoute
-  AuthenticatedDashboardHistoryRoute: typeof AuthenticatedDashboardHistoryRoute
   AuthenticatedDashboardPlannerRoute: typeof AuthenticatedDashboardPlannerRoute
   AuthenticatedDashboardQuizRoute: typeof AuthenticatedDashboardQuizRoute
   AuthenticatedDashboardSettingsRoute: typeof AuthenticatedDashboardSettingsRoute
   AuthenticatedDashboardSummarizeRoute: typeof AuthenticatedDashboardSummarizeRoute
-  AuthenticatedDashboardTasksRoute: typeof AuthenticatedDashboardTasksRoute
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
 }
 
@@ -326,12 +284,10 @@ const AuthenticatedDashboardRouteRouteChildren: AuthenticatedDashboardRouteRoute
     AuthenticatedDashboardAnalyticsRoute: AuthenticatedDashboardAnalyticsRoute,
     AuthenticatedDashboardChatRoute: AuthenticatedDashboardChatRoute,
     AuthenticatedDashboardExplainerRoute: AuthenticatedDashboardExplainerRoute,
-    AuthenticatedDashboardHistoryRoute: AuthenticatedDashboardHistoryRoute,
     AuthenticatedDashboardPlannerRoute: AuthenticatedDashboardPlannerRoute,
     AuthenticatedDashboardQuizRoute: AuthenticatedDashboardQuizRoute,
     AuthenticatedDashboardSettingsRoute: AuthenticatedDashboardSettingsRoute,
     AuthenticatedDashboardSummarizeRoute: AuthenticatedDashboardSummarizeRoute,
-    AuthenticatedDashboardTasksRoute: AuthenticatedDashboardTasksRoute,
     AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
   }
 
@@ -360,13 +316,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
