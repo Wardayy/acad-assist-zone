@@ -1,7 +1,7 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import {
   FileText, Brain, Lightbulb, MessageCircle, BarChart3,
-  Settings, Sparkles, LogOut, User, Menu, X, CalendarDays,
+  Settings, Sparkles, LogOut, User, Menu, X, CalendarDays, Calculator,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -16,6 +16,7 @@ const nav = [
   { to: "/dashboard/explainer", label: "AI Learning Mode", icon: Lightbulb },
   { to: "/dashboard/planner", label: "Study Planner", icon: CalendarDays },
   { to: "/dashboard/analytics", label: "Analytics", icon: BarChart3 },
+  { to: "/dashboard/math", label: "Math Tutor", icon: Calculator },
   { to: "/dashboard/settings", label: "Settings", icon: Settings },
 ] as const;
 
