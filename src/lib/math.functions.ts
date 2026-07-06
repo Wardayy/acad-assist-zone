@@ -2,8 +2,8 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
-const GATEWAY_URL = "https://ai.gateway.lovable.dev/v1/chat/completions";
-const MODEL = "google/gemini-2.5-flash";
+const GATEWAY_URL = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
+const MODEL = "gemini-2.5-flash";
 
 const SYSTEM_PROMPT = `You are StudyBloom Math Tutor, an expert in Algebra, Geometry, Trigonometry, Calculus, Statistics, and Linear Algebra.
 
@@ -24,8 +24,8 @@ export const solveMath = createServerFn({ method: "POST" })
     z.object({ question: z.string().min(1).max(4000) }).parse(d),
   )
   .handler(async ({ data }) => {
-    const apiKey = process.env.LOVABLE_API_KEY;
-    if (!apiKey) throw new Error("LOVABLE_API_KEY is not configured");
+    const apiKey = process.env.GOOGLE_AI_API_KEY;
+    if (!apiKey) throw new Error("GOOGLE_AI_API_KEY is not configured");
 
     const res = await fetch(GATEWAY_URL, {
       method: "POST",
@@ -45,7 +45,7 @@ export const solveMath = createServerFn({ method: "POST" })
     if (!res.ok) {
       const text = await res.text();
       if (res.status === 429) throw new Error("Rate limit reached — please try again in a moment.");
-      if (res.status === 402) throw new Error("AI credits exhausted. Please add credits to your Lovable workspace.");
+      if (res.status === 402) throw new Error("AI quota exceeded. Please check your Google AI Studio usage limits.");
       throw new Error(`AI error (${res.status}): ${text.slice(0, 200)}`);
     }
 
