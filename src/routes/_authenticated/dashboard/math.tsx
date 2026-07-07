@@ -211,6 +211,25 @@ function MathTutorPage() {
               className="w-full rounded-2xl border border-border bg-background px-4 py-3 text-sm focus:outline-none focus:ring-4 focus:ring-primary/20"
             />
 
+            <div className="flex flex-wrap gap-2">
+              {["Algebra", "Geometry", "Statistics", "Calculus", "Trigonometry", "Linear Algebra"].map((topic) => (
+                <button
+                  key={topic}
+                  type="button"
+                  onClick={() =>
+                    setQuestion((prev) =>
+                      prev.trim().length === 0 ? `${topic}: ` : `${topic}: ${prev}`,
+                    )
+                  }
+                  className="text-xs px-3 py-1.5 rounded-full border border-border bg-card text-foreground hover:bg-accent transition"
+                >
+                  {topic}
+                </button>
+              ))}
+            </div>
+
+
+
             <div>
               <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
                 Upload images (up to 2)
