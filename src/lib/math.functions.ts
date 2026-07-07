@@ -23,7 +23,7 @@ export const solveMath = createServerFn({ method: "POST" })
   .inputValidator((d: { question: string }) =>
     z.object({ question: z.string().min(1).max(4000) }).parse(d),
   )
-  .handler(async ({ data }) => {
+  .handler(async ({ data, context }) => {
     const apiKey = process.env.GOOGLE_AI_API_KEY;
     if (!apiKey) throw new Error("GOOGLE_AI_API_KEY is not configured");
 
@@ -52,5 +52,57 @@ export const solveMath = createServerFn({ method: "POST" })
     const json = await res.json();
     const solution = json.choices?.[0]?.message?.content as string;
     if (!solution) throw new Error("No solution returned by AI.");
-    return { solution };
+
+    const { supabase, userId } = context;
+    const { data: row, error } = await supabase
+      .from("math_solutions")
+      .insert({ user_id: userId, question: data.question, solution })
+      .select("id,created_at")
+      .single();
+    if (error) throw new Error(error.message);
+
+    return { solution, id: row.id, created_at: row.created_at };
+  });
+
+export const listMathSolutions = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { supabase, userId } = context;
+    const { data, error } = await supabase
+      .from("math_solutions")
+      .select("id,question,created_at")
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false });
+    if (error) throw new Error(error.message);
+    return { solutions: data ?? [] };
+  });
+
+export const getMathSolution = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { id: string }) => z.object({ id: z.string().uuid() }).parse(d))
+  .handler(async ({ context, data }) => {
+    const { supabase, userId } = context;
+    const { data: row, error } = await supabase
+      .from("math_solutions")
+      .select("*")
+      .eq("id", data.id)
+      .eq("user_id", userId)
+      .maybeSingle();
+    if (error) throw new Error(error.message);
+    if (!row) throw new Error("Solution not found");
+    return { solution: row };
+  });
+
+export const deleteMathSolution = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { id: string }) => z.object({ id: z.string().uuid() }).parse(d))
+  .handler(async ({ context, data }) => {
+    const { supabase, userId } = context;
+    const { error } = await supabase
+      .from("math_solutions")
+      .delete()
+      .eq("id", data.id)
+      .eq("user_id", userId);
+    if (error) throw new Error(error.message);
+    return { ok: true };
   });
