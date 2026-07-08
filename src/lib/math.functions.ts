@@ -20,12 +20,30 @@ Be accurate, concise, and pedagogical. If the question is unclear or not mathema
 
 export const solveMath = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { question: string }) =>
-    z.object({ question: z.string().min(1).max(4000) }).parse(d),
+  .inputValidator((d: { question: string; images?: string[] }) =>
+    z
+      .object({
+        question: z.string().max(4000),
+        images: z.array(z.string().startsWith("data:image/")).max(2).optional(),
+      })
+      .refine((v) => v.question.trim().length > 0 || (v.images && v.images.length > 0), {
+        message: "Provide a question or at least one image.",
+      })
+      .parse(d),
   )
   .handler(async ({ data, context }) => {
     const apiKey = process.env.GOOGLE_AI_API_KEY;
     if (!apiKey) throw new Error("GOOGLE_AI_API_KEY is not configured");
+
+    const userText =
+      data.question.trim().length > 0
+        ? data.question
+        : "Please solve the mathematical problem shown in the attached image(s).";
+
+    const content: Array<Record<string, unknown>> = [{ type: "text", text: userText }];
+    for (const img of data.images ?? []) {
+      content.push({ type: "image_url", image_url: { url: img } });
+    }
 
     const res = await fetch(GATEWAY_URL, {
       method: "POST",
@@ -37,10 +55,11 @@ export const solveMath = createServerFn({ method: "POST" })
         model: MODEL,
         messages: [
           { role: "system", content: SYSTEM_PROMPT },
-          { role: "user", content: data.question },
+          { role: "user", content },
         ],
       }),
     });
+
 
     if (!res.ok) {
       const text = await res.text();
