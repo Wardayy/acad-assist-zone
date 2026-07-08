@@ -282,22 +282,65 @@ function MathTutorPage() {
 
 
             <div>
-              <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
-                Upload images (up to 2)
+              <div className="flex items-center justify-between mb-2">
+                <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                  Upload images ({images.length}/{MAX_IMAGES})
+                </div>
+                <div className="text-xs text-muted-foreground">JPG, PNG, WEBP · max 5MB</div>
               </div>
-              <div className="grid sm:grid-cols-2 gap-3">
-                {[0, 1].map((i) => (
-                  <div
-                    key={i}
-                    className="rounded-2xl border-2 border-dashed border-border bg-background/40 p-6 grid place-items-center text-center text-muted-foreground hover:bg-accent/40 transition cursor-pointer"
-                  >
-                    <ImagePlus className="h-6 w-6 mb-2 text-primary" />
-                    <div className="text-sm font-medium">Upload image {i + 1}</div>
-                    <div className="text-xs">PNG, JPG — coming soon</div>
+              <label
+                onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+                onDragLeave={() => setDragOver(false)}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  setDragOver(false);
+                  if (e.dataTransfer.files?.length) addFiles(e.dataTransfer.files);
+                }}
+                className={`block rounded-2xl border-2 border-dashed p-6 text-center cursor-pointer transition ${
+                  dragOver ? "border-primary bg-primary/5" : "border-border bg-background/40 hover:bg-accent/40"
+                } ${images.length >= MAX_IMAGES ? "opacity-50 pointer-events-none" : ""}`}
+              >
+                <input
+                  type="file"
+                  accept="image/jpeg,image/jpg,image/png,image/webp"
+                  multiple
+                  className="hidden"
+                  onChange={(e) => {
+                    if (e.target.files?.length) addFiles(e.target.files);
+                    e.target.value = "";
+                  }}
+                />
+                <div className="flex flex-col items-center text-muted-foreground">
+                  <ImagePlus className="h-6 w-6 mb-2 text-primary" />
+                  <div className="text-sm font-medium">
+                    {images.length >= MAX_IMAGES
+                      ? "Maximum images reached"
+                      : "Drag & drop or click to upload"}
                   </div>
-                ))}
-              </div>
+                  <div className="text-xs">Up to {MAX_IMAGES} images</div>
+                </div>
+              </label>
+
+              {images.length > 0 && (
+                <div className="grid sm:grid-cols-2 gap-3 mt-3">
+                  {images.map((img, i) => (
+                    <div key={i} className="relative rounded-2xl border border-border bg-background/40 overflow-hidden group">
+                      <img src={img.dataUrl} alt={img.name} className="w-full h-40 object-contain bg-background" />
+                      <div className="px-3 py-2 text-xs text-muted-foreground truncate">{img.name}</div>
+                      <button
+                        type="button"
+                        onClick={() => removeImage(i)}
+                        className="absolute top-2 right-2 rounded-full bg-background/90 border border-border p-1.5 text-muted-foreground hover:text-destructive shadow-sm"
+                        aria-label="Remove image"
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
+
 
             <div className="flex items-center gap-3">
               <button
