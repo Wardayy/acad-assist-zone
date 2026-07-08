@@ -226,7 +226,9 @@ function MathTutorPage() {
     setActiveQuestion("");
     setQuestion("");
     setError("");
+    setImages([]);
   }
+
 
   const solutions = list.data?.solutions ?? [];
 
