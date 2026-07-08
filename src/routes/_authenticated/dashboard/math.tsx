@@ -191,6 +191,8 @@ function MathTutorPage() {
     setError("");
     setLoading(true);
     setSolution("");
+    setImages([]);
+
     try {
       const res = await getFn({ data: { id } });
       setSolution(res.solution.solution);
