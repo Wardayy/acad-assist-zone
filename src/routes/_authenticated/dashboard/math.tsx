@@ -112,23 +112,71 @@ function MathTutorPage() {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>("");
+  const [images, setImages] = useState<{ name: string; dataUrl: string }[]>([]);
+  const [dragOver, setDragOver] = useState(false);
+
+  const MAX_IMAGES = 2;
+  const MAX_SIZE = 5 * 1024 * 1024;
+  const ACCEPTED = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
   const list = useQuery({ queryKey: ["math_solutions"], queryFn: () => listFn() });
+
+  function readFile(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const fr = new FileReader();
+      fr.onload = () => resolve(fr.result as string);
+      fr.onerror = () => reject(new Error("Failed to read file"));
+      fr.readAsDataURL(file);
+    });
+  }
+
+  async function addFiles(files: FileList | File[]) {
+    setError("");
+    const arr = Array.from(files);
+    const remaining = MAX_IMAGES - images.length;
+    if (remaining <= 0) {
+      setError(`You can upload at most ${MAX_IMAGES} images.`);
+      return;
+    }
+    const next: { name: string; dataUrl: string }[] = [];
+    for (const f of arr.slice(0, remaining)) {
+      if (!ACCEPTED.includes(f.type)) {
+        setError("Only JPG, JPEG, PNG, or WEBP images are allowed.");
+        continue;
+      }
+      if (f.size > MAX_SIZE) {
+        setError(`"${f.name}" exceeds the 5MB size limit.`);
+        continue;
+      }
+      try {
+        next.push({ name: f.name, dataUrl: await readFile(f) });
+      } catch {
+        setError("Failed to read one of the images.");
+      }
+    }
+    if (next.length) setImages((prev) => [...prev, ...next].slice(0, MAX_IMAGES));
+  }
+
+  function removeImage(idx: number) {
+    setImages((prev) => prev.filter((_, i) => i !== idx));
+  }
 
   async function handleSolve() {
     setError("");
     const q = question.trim();
-    if (!q) {
-      setError("Please enter a mathematical question first.");
+    if (!q && images.length === 0) {
+      setError("Please enter a question or upload at least one image.");
       return;
     }
     setLoading(true);
     setSolution("");
     setActiveId(null);
     try {
-      const res = await solve({ data: { question: q } });
+      const res = await solve({
+        data: { question: q, images: images.map((i) => i.dataUrl) },
+      });
       setSolution(res.solution);
-      setActiveQuestion(q);
+      setActiveQuestion(q || `[Image problem] ${images.length} image(s)`);
       setActiveId(res.id);
       qc.invalidateQueries({ queryKey: ["math_solutions"] });
     } catch (e) {
@@ -138,10 +186,13 @@ function MathTutorPage() {
     }
   }
 
+
   async function openSolution(id: string) {
     setError("");
     setLoading(true);
     setSolution("");
+    setImages([]);
+
     try {
       const res = await getFn({ data: { id } });
       setSolution(res.solution.solution);
@@ -177,7 +228,9 @@ function MathTutorPage() {
     setActiveQuestion("");
     setQuestion("");
     setError("");
+    setImages([]);
   }
+
 
   const solutions = list.data?.solutions ?? [];
 
@@ -231,22 +284,65 @@ function MathTutorPage() {
 
 
             <div>
-              <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
-                Upload images (up to 2)
+              <div className="flex items-center justify-between mb-2">
+                <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                  Upload images ({images.length}/{MAX_IMAGES})
+                </div>
+                <div className="text-xs text-muted-foreground">JPG, PNG, WEBP · max 5MB</div>
               </div>
-              <div className="grid sm:grid-cols-2 gap-3">
-                {[0, 1].map((i) => (
-                  <div
-                    key={i}
-                    className="rounded-2xl border-2 border-dashed border-border bg-background/40 p-6 grid place-items-center text-center text-muted-foreground hover:bg-accent/40 transition cursor-pointer"
-                  >
-                    <ImagePlus className="h-6 w-6 mb-2 text-primary" />
-                    <div className="text-sm font-medium">Upload image {i + 1}</div>
-                    <div className="text-xs">PNG, JPG — coming soon</div>
+              <label
+                onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+                onDragLeave={() => setDragOver(false)}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  setDragOver(false);
+                  if (e.dataTransfer.files?.length) addFiles(e.dataTransfer.files);
+                }}
+                className={`block rounded-2xl border-2 border-dashed p-6 text-center cursor-pointer transition ${
+                  dragOver ? "border-primary bg-primary/5" : "border-border bg-background/40 hover:bg-accent/40"
+                } ${images.length >= MAX_IMAGES ? "opacity-50 pointer-events-none" : ""}`}
+              >
+                <input
+                  type="file"
+                  accept="image/jpeg,image/jpg,image/png,image/webp"
+                  multiple
+                  className="hidden"
+                  onChange={(e) => {
+                    if (e.target.files?.length) addFiles(e.target.files);
+                    e.target.value = "";
+                  }}
+                />
+                <div className="flex flex-col items-center text-muted-foreground">
+                  <ImagePlus className="h-6 w-6 mb-2 text-primary" />
+                  <div className="text-sm font-medium">
+                    {images.length >= MAX_IMAGES
+                      ? "Maximum images reached"
+                      : "Drag & drop or click to upload"}
                   </div>
-                ))}
-              </div>
+                  <div className="text-xs">Up to {MAX_IMAGES} images</div>
+                </div>
+              </label>
+
+              {images.length > 0 && (
+                <div className="grid sm:grid-cols-2 gap-3 mt-3">
+                  {images.map((img, i) => (
+                    <div key={i} className="relative rounded-2xl border border-border bg-background/40 overflow-hidden group">
+                      <img src={img.dataUrl} alt={img.name} className="w-full h-40 object-contain bg-background" />
+                      <div className="px-3 py-2 text-xs text-muted-foreground truncate">{img.name}</div>
+                      <button
+                        type="button"
+                        onClick={() => removeImage(i)}
+                        className="absolute top-2 right-2 rounded-full bg-background/90 border border-border p-1.5 text-muted-foreground hover:text-destructive shadow-sm"
+                        aria-label="Remove image"
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
+
 
             <div className="flex items-center gap-3">
               <button
