@@ -75,7 +75,7 @@ export const solveMath = createServerFn({ method: "POST" })
     const { supabase, userId } = context;
     const { data: row, error } = await supabase
       .from("math_solutions")
-      .insert({ user_id: userId, question: data.question, solution })
+      .insert({ user_id: userId, question: data.question.trim() || `[Image problem] ${(data.images?.length ?? 0)} image(s)`, solution })
       .select("id,created_at")
       .single();
     if (error) throw new Error(error.message);
