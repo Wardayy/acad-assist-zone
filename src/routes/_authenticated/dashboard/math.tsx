@@ -112,23 +112,71 @@ function MathTutorPage() {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>("");
+  const [images, setImages] = useState<{ name: string; dataUrl: string }[]>([]);
+  const [dragOver, setDragOver] = useState(false);
+
+  const MAX_IMAGES = 2;
+  const MAX_SIZE = 5 * 1024 * 1024;
+  const ACCEPTED = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
   const list = useQuery({ queryKey: ["math_solutions"], queryFn: () => listFn() });
+
+  function readFile(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const fr = new FileReader();
+      fr.onload = () => resolve(fr.result as string);
+      fr.onerror = () => reject(new Error("Failed to read file"));
+      fr.readAsDataURL(file);
+    });
+  }
+
+  async function addFiles(files: FileList | File[]) {
+    setError("");
+    const arr = Array.from(files);
+    const remaining = MAX_IMAGES - images.length;
+    if (remaining <= 0) {
+      setError(`You can upload at most ${MAX_IMAGES} images.`);
+      return;
+    }
+    const next: { name: string; dataUrl: string }[] = [];
+    for (const f of arr.slice(0, remaining)) {
+      if (!ACCEPTED.includes(f.type)) {
+        setError("Only JPG, JPEG, PNG, or WEBP images are allowed.");
+        continue;
+      }
+      if (f.size > MAX_SIZE) {
+        setError(`"${f.name}" exceeds the 5MB size limit.`);
+        continue;
+      }
+      try {
+        next.push({ name: f.name, dataUrl: await readFile(f) });
+      } catch {
+        setError("Failed to read one of the images.");
+      }
+    }
+    if (next.length) setImages((prev) => [...prev, ...next].slice(0, MAX_IMAGES));
+  }
+
+  function removeImage(idx: number) {
+    setImages((prev) => prev.filter((_, i) => i !== idx));
+  }
 
   async function handleSolve() {
     setError("");
     const q = question.trim();
-    if (!q) {
-      setError("Please enter a mathematical question first.");
+    if (!q && images.length === 0) {
+      setError("Please enter a question or upload at least one image.");
       return;
     }
     setLoading(true);
     setSolution("");
     setActiveId(null);
     try {
-      const res = await solve({ data: { question: q } });
+      const res = await solve({
+        data: { question: q, images: images.map((i) => i.dataUrl) },
+      });
       setSolution(res.solution);
-      setActiveQuestion(q);
+      setActiveQuestion(q || `[Image problem] ${images.length} image(s)`);
       setActiveId(res.id);
       qc.invalidateQueries({ queryKey: ["math_solutions"] });
     } catch (e) {
@@ -137,6 +185,7 @@ function MathTutorPage() {
       setLoading(false);
     }
   }
+
 
   async function openSolution(id: string) {
     setError("");
