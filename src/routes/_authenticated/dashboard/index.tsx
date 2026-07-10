@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { getProfile } from "@/lib/profile.functions";
-import { FileText, Brain, BookOpen, MessageCircle, CalendarDays, BarChart3, Sparkles } from "lucide-react";
+import { FileText, Brain, BookOpen, MessageCircle, CalendarDays, BarChart3, Sparkles, Calculator } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/dashboard/")({
   head: () => ({ meta: [{ title: "Dashboard — StudyBloom AI" }] }),
@@ -14,6 +14,7 @@ const tools = [
   { to: "/dashboard/summarize", label: "Notes Summarizer", icon: FileText, desc: "Paste notes, get exam-ready summaries." },
   { to: "/dashboard/quiz", label: "Quiz Generator", icon: Brain, desc: "Create MCQs from any topic." },
   { to: "/dashboard/explainer", label: "Topic Explainer", icon: BookOpen, desc: "Learn anything, your level." },
+  { to: "/dashboard/math", label: "Math Tutor", icon: Calculator, desc: "Step-by-step solutions, typed or from a photo." },
   { to: "/dashboard/planner", label: "Study Planner", icon: CalendarDays, desc: "Plan sessions & get reminders." },
   { to: "/dashboard/analytics", label: "Analytics", icon: BarChart3, desc: "Track streaks & progress." },
 ] as const;
