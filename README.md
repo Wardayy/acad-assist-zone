@@ -15,7 +15,7 @@ An AI-powered web application designed to help students learn more efficiently t
 - AI learning Mode
 - Personalized Study Planner
 - Math Tutor
-- Analytics (In Progress)
+- Analytics 
 
 ---
 
