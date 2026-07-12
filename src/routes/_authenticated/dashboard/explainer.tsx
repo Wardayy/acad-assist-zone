@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import {
   Lightbulb, Sparkles, Loader2, Copy, RefreshCw, Save, Download, Share2,
-  Search, Trash2, GraduationCap, Baby, BookOpen, Briefcase, ClipboardCheck,
+  Search, Trash2, GraduationCap, Baby, BookOpen, Briefcase, ClipboardCheck, Plus,
 } from "lucide-react";
 import { toast } from "sonner";
 import {
@@ -113,6 +113,16 @@ function AILearningMode() {
     setDifficulty(h.difficulty);
     setLength(h.response_length);
     if (h.options) setOpts({ ...DEFAULT_OPTS, ...h.options });
+  }
+
+  function newExplanation() {
+    setActiveId(null);
+    setExplanation(null);
+    setInput("");
+    setMode("explain_simply");
+    setDifficulty("beginner");
+    setLength("medium");
+    setOpts(DEFAULT_OPTS);
   }
 
   async function copyExp() {
@@ -337,6 +347,12 @@ function AILearningMode() {
 
       {/* History sidebar */}
       <aside className="space-y-3 lg:sticky lg:top-20 self-start">
+        <button
+          onClick={newExplanation}
+          className="w-full rounded-2xl bg-gradient-primary py-2.5 text-sm font-semibold text-primary-foreground shadow-soft flex items-center justify-center gap-2"
+        >
+          <Plus className="h-4 w-4" /> New explanation
+        </button>
         <div className="rounded-3xl bg-card border border-border/60 shadow-card p-4">
           <div className="flex items-center gap-2 mb-3">
             <Search className="h-4 w-4 text-muted-foreground" />
