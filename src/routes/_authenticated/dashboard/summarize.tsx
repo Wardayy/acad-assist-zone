@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
-import { FileText, Loader2, Sparkles, Trash2 } from "lucide-react";
+import { FileText, Loader2, Sparkles, Trash2, Plus } from "lucide-react";
 import { toast } from "sonner";
 import { listSummaries, summarizeNotes, deleteSummary } from "@/lib/ai.functions";
 import { Markdown } from "@/components/Markdown";
@@ -48,6 +48,12 @@ function SummarizePage() {
     await delFn({ data: { id } });
     if (active === id) setActive(null);
     qc.invalidateQueries({ queryKey: ["summaries"] });
+  }
+
+  function newSummary() {
+    setTitle("");
+    setText("");
+    setActive(null);
   }
 
   const summaries = q.data?.summaries ?? [];
@@ -102,6 +108,12 @@ function SummarizePage() {
         </div>
 
         <aside className="rounded-3xl bg-card border border-border/60 shadow-card p-3 h-fit">
+          <button
+            onClick={newSummary}
+            className="w-full rounded-2xl bg-gradient-primary py-2.5 text-sm font-semibold text-primary-foreground shadow-soft flex items-center justify-center gap-2 mb-3"
+          >
+            <Plus className="h-4 w-4" /> New summary
+          </button>
           <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
             Recent summaries
           </div>
