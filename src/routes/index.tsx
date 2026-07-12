@@ -81,15 +81,7 @@ function Landing() {
             </Link>
           </div>
 
-          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-            {features.slice(0, 4).map((f) => (
-              <div key={f.title} className="glass rounded-3xl p-5 text-left shadow-card hover:shadow-glow transition-shadow">
-                <div className="h-10 w-10 rounded-2xl bg-blush grid place-items-center mb-3">
-                  <f.icon className="h-5 w-5 text-primary" />
-                </div>
-                <div className="font-semibold text-sm">{f.title}</div>
-                <div className="text-xs text-muted-foreground mt-1">{f.desc}</div>
-              </div>
+         
             ))}
           </div>
         </div>
