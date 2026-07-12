@@ -143,10 +143,7 @@ function Landing() {
               <div className="text-xs text-muted-foreground">Made with 💜 for students</div>
             </div>
           </div>
-          <div className="flex items-center gap-6 text-sm font-medium text-muted-foreground">
-            <Link to="/auth" className="hover:text-foreground">Sign in</Link>
-            <Link to="/auth" search={{ mode: "signup" }} className="hover:text-foreground">Get started</Link>
-          </div>
+    
         </div>
       </footer>
     </div>
