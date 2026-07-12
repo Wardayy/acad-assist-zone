@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Sparkles, BookOpen, Brain, ListChecks, MessageCircle, BarChart3, FileText } from "lucide-react";
+import { Sparkles, BookOpen, Brain, ListChecks, MessageCircle, BarChart3, FileText, Calculator, UserPlus, MousePointerClick, Zap } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -16,9 +16,16 @@ const features = [
   { icon: Brain, title: "Quiz Generator", desc: "MCQs, true/false and short questions from any text." },
   { icon: BookOpen, title: "Topic Explainer", desc: "Friendly explanations adapted to your level." },
   { icon: MessageCircle, title: "AI Study Chatbot", desc: "A tutor that knows your subjects and goals." },
+  { icon: Calculator, title: "Math Tutor", desc: "Step-by-step solutions, typed or from a photo." },
   { icon: ListChecks, title: "Study Planner", desc: "Schedule exams, quizzes and assignments with reminders." },
   { icon: BarChart3, title: "Study Analytics", desc: "See your streaks, scores and study time." },
-  { icon: Sparkles, title: "Personalized AI", desc: "Adapts to your subjects, language and goals." },
+  
+];
+
+const steps = [
+  { icon: UserPlus, title: "Sign up", desc: "Create your free account in a few seconds — no credit card needed." },
+  { icon: MousePointerClick, title: "Pick a tool", desc: "Choose from summarizer, quiz generator, math tutor, chat and more." },
+  { icon: Zap, title: "Get instant AI help", desc: "Get step-by-step answers, explanations and study plans right away." },
 ];
 
 function Landing() {
@@ -49,7 +56,7 @@ function Landing() {
         <div className="mx-auto max-w-6xl px-6 pt-20 pb-24 text-center">
           <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs font-medium text-primary mb-6 shadow-card">
             <Sparkles className="h-3.5 w-3.5" />
-            Powered by Lovable AI
+            Powered by AI
           </div>
           <h1 className="font-display text-5xl md:text-7xl font-bold tracking-tight leading-[1.05]">
             Study smarter,{" "}
@@ -91,6 +98,26 @@ function Landing() {
 
       <section className="mx-auto max-w-6xl px-6 pb-24">
         <h2 className="font-display text-3xl md:text-4xl font-bold text-center mb-12">
+          How it <span className="text-primary">works</span>
+        </h2>
+        <div className="grid sm:grid-cols-3 gap-6">
+          {steps.map((s, i) => (
+            <div key={s.title} className="relative rounded-3xl bg-card p-6 shadow-card border border-border/60 text-center">
+              <div className="absolute -top-3 -left-3 h-8 w-8 rounded-full bg-gradient-primary grid place-items-center text-xs font-bold text-primary-foreground shadow-soft">
+                {i + 1}
+              </div>
+              <div className="h-12 w-12 rounded-2xl bg-blush grid place-items-center mb-4 mx-auto">
+                <s.icon className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="font-semibold">{s.title}</h3>
+              <p className="text-sm text-muted-foreground mt-1.5">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-6 pb-24">
+        <h2 className="font-display text-3xl md:text-4xl font-bold text-center mb-12">
           Everything you need to <span className="text-primary">ace the semester</span>
         </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -106,9 +133,39 @@ function Landing() {
         </div>
       </section>
 
-      <footer className="border-t border-border/60 py-8">
-        <div className="mx-auto max-w-6xl px-6 text-center text-sm text-muted-foreground">
-          Made with 💜 for students • StudyBloom AI
+      <section className="mx-auto max-w-4xl px-6 pb-24 text-center">
+        <div className="rounded-3xl bg-gradient-primary p-12 shadow-glow">
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-foreground">
+            Ready to bloom brighter?
+          </h2>
+          <p className="mt-3 text-primary-foreground/90">
+            Join StudyBloom AI and turn any subject into something you actually enjoy studying.
+          </p>
+          <Link
+            to="/auth"
+            search={{ mode: "signup" }}
+            className="mt-8 inline-block rounded-full bg-background px-8 py-3 text-base font-semibold text-foreground shadow-card hover:scale-[1.02] transition-transform"
+          >
+            Get started free
+          </Link>
+        </div>
+      </section>
+
+      <footer className="border-t border-border/60 py-10">
+        <div className="mx-auto max-w-6xl px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <div className="h-8 w-8 rounded-xl bg-gradient-primary grid place-items-center shadow-soft">
+              <Sparkles className="h-4 w-4 text-primary-foreground" />
+            </div>
+            <div>
+              <div className="font-display text-sm font-bold">StudyBloom <span className="text-primary">AI</span></div>
+              <div className="text-xs text-muted-foreground">Made with 💜 for students</div>
+            </div>
+          </div>
+          <div className="flex items-center gap-6 text-sm font-medium text-muted-foreground">
+            <Link to="/auth" className="hover:text-foreground">Sign in</Link>
+            <Link to="/auth" search={{ mode: "signup" }} className="hover:text-foreground">Get started</Link>
+          </div>
         </div>
       </footer>
     </div>
