@@ -63,8 +63,7 @@ function Landing() {
             <span className="bg-gradient-primary bg-clip-text text-transparent">bloom brighter</span>.
           </h1>
           <p className="mt-6 mx-auto max-w-2xl text-lg text-muted-foreground">
-            Your personalized AI study companion — summarize notes, generate quizzes, explain topics
-            and stay organized in one cozy pastel workspace.
+            Your personalized AI study companion 
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             <Link
@@ -118,7 +117,7 @@ function Landing() {
 
       <section className="mx-auto max-w-6xl px-6 pb-24">
         <h2 className="font-display text-3xl md:text-4xl font-bold text-center mb-12">
-          Everything you need to <span className="text-primary">ace the semester</span>
+          Everything you need to <span className="text-primary">ace your tasks</span>
         </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {features.map((f) => (
@@ -130,24 +129,6 @@ function Landing() {
               <p className="text-sm text-muted-foreground mt-1.5">{f.desc}</p>
             </div>
           ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-4xl px-6 pb-24 text-center">
-        <div className="rounded-3xl bg-gradient-primary p-12 shadow-glow">
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-foreground">
-            Ready to bloom brighter?
-          </h2>
-          <p className="mt-3 text-primary-foreground/90">
-            Join StudyBloom AI and turn any subject into something you actually enjoy studying.
-          </p>
-          <Link
-            to="/auth"
-            search={{ mode: "signup" }}
-            className="mt-8 inline-block rounded-full bg-background px-8 py-3 text-base font-semibold text-foreground shadow-card hover:scale-[1.02] transition-transform"
-          >
-            Get started free
-          </Link>
         </div>
       </section>
 
