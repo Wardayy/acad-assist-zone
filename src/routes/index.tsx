@@ -63,8 +63,7 @@ function Landing() {
             <span className="bg-gradient-primary bg-clip-text text-transparent">bloom brighter</span>.
           </h1>
           <p className="mt-6 mx-auto max-w-2xl text-lg text-muted-foreground">
-            Your personalized AI study companion — summarize notes, generate quizzes, explain topics
-            and stay organized in one cozy pastel workspace.
+            Your personalized AI study companion.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             <Link
@@ -80,18 +79,6 @@ function Landing() {
             >
               I already have an account
             </Link>
-          </div>
-
-          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-            {features.slice(0, 4).map((f) => (
-              <div key={f.title} className="glass rounded-3xl p-5 text-left shadow-card hover:shadow-glow transition-shadow">
-                <div className="h-10 w-10 rounded-2xl bg-blush grid place-items-center mb-3">
-                  <f.icon className="h-5 w-5 text-primary" />
-                </div>
-                <div className="font-semibold text-sm">{f.title}</div>
-                <div className="text-xs text-muted-foreground mt-1">{f.desc}</div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -118,7 +105,7 @@ function Landing() {
 
       <section className="mx-auto max-w-6xl px-6 pb-24">
         <h2 className="font-display text-3xl md:text-4xl font-bold text-center mb-12">
-          Everything you need to <span className="text-primary">ace the semester</span>
+          Everything you need to <span className="text-primary">ace your tasks.</span>
         </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {features.map((f) => (
@@ -133,38 +120,14 @@ function Landing() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-4xl px-6 pb-24 text-center">
-        <div className="rounded-3xl bg-gradient-primary p-12 shadow-glow">
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-foreground">
-            Ready to bloom brighter?
-          </h2>
-          <p className="mt-3 text-primary-foreground/90">
-            Join StudyBloom AI and turn any subject into something you actually enjoy studying.
-          </p>
-          <Link
-            to="/auth"
-            search={{ mode: "signup" }}
-            className="mt-8 inline-block rounded-full bg-background px-8 py-3 text-base font-semibold text-foreground shadow-card hover:scale-[1.02] transition-transform"
-          >
-            Get started free
-          </Link>
-        </div>
-      </section>
-
       <footer className="border-t border-border/60 py-10">
-        <div className="mx-auto max-w-6xl px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-xl bg-gradient-primary grid place-items-center shadow-soft">
-              <Sparkles className="h-4 w-4 text-primary-foreground" />
-            </div>
-            <div>
-              <div className="font-display text-sm font-bold">StudyBloom <span className="text-primary">AI</span></div>
-              <div className="text-xs text-muted-foreground">Made with 💜 for students</div>
-            </div>
+        <div className="mx-auto max-w-6xl px-6 flex items-center justify-center gap-2">
+          <div className="h-8 w-8 rounded-xl bg-gradient-primary grid place-items-center shadow-soft">
+            <Sparkles className="h-4 w-4 text-primary-foreground" />
           </div>
-          <div className="flex items-center gap-6 text-sm font-medium text-muted-foreground">
-            <Link to="/auth" className="hover:text-foreground">Sign in</Link>
-            <Link to="/auth" search={{ mode: "signup" }} className="hover:text-foreground">Get started</Link>
+          <div>
+            <div className="font-display text-sm font-bold">StudyBloom <span className="text-primary">AI</span></div>
+            <div className="text-xs text-muted-foreground">Made with 💜 for students</div>
           </div>
         </div>
       </footer>
