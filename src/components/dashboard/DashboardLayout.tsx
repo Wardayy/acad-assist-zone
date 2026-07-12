@@ -1,7 +1,7 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import {
   FileText, Brain, Lightbulb, MessageCircle, BarChart3,
-  Settings, Sparkles, LogOut, User, Menu, X, CalendarDays, Calculator,
+  Settings, Sparkles, LogOut, User, Menu, X, CalendarDays, Calculator, ArrowLeft,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -50,6 +50,16 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
               </div>
               <span className="font-display font-bold tracking-tight hidden sm:block">StudyBloom <span className="text-primary">AI</span></span>
             </Link>
+            {path !== "/dashboard" && (
+              <Link
+                to="/dashboard"
+                className="ml-1 flex items-center gap-1.5 rounded-full bg-card border border-border px-3 py-1.5 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
+                aria-label="Back to Dashboard"
+              >
+                <ArrowLeft className="h-3.5 w-3.5" />
+                <span className="hidden sm:inline">Back</span>
+              </Link>
+            )}
           </div>
 
           <div className="flex-1 max-w-xl mx-auto hidden md:block">
