@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Sparkles, BookOpen, Brain, ListChecks, MessageCircle, BarChart3, FileText, Calculator, UserPlus, MousePointerClick, Zap } from "lucide-react";
+import { Sparkles, UserPlus, MousePointerClick, Zap } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -10,17 +10,6 @@ export const Route = createFileRoute("/")({
   }),
   component: Landing,
 });
-
-const features = [
-  { icon: FileText, title: "Notes Summarizer", desc: "Turn dense notes into clean revision sheets." },
-  { icon: Brain, title: "Quiz Generator", desc: "MCQs, true/false and short questions from any text." },
-  { icon: BookOpen, title: "Topic Explainer", desc: "Friendly explanations adapted to your level." },
-  { icon: MessageCircle, title: "AI Study Chatbot", desc: "A tutor that knows your subjects and goals." },
-  { icon: Calculator, title: "Math Tutor", desc: "Step-by-step solutions, typed or from a photo." },
-  { icon: ListChecks, title: "Study Planner", desc: "Schedule exams, quizzes and assignments with reminders." },
-  { icon: BarChart3, title: "Study Analytics", desc: "See your streaks, scores and study time." },
-  { icon: Sparkles, title: "Personalized AI", desc: "Adapts to your subjects, language and goals." },
-];
 
 const steps = [
   { icon: UserPlus, title: "Sign up", desc: "Create your free account in a few seconds — no credit card needed." },
@@ -98,23 +87,6 @@ function Landing() {
               </div>
               <h3 className="font-semibold">{s.title}</h3>
               <p className="text-sm text-muted-foreground mt-1.5">{s.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-6 pb-24">
-        <h2 className="font-display text-3xl md:text-4xl font-bold text-center mb-12">
-          Everything you need to <span className="text-primary">ace your tasks.</span>
-        </h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {features.map((f) => (
-            <div key={f.title} className="rounded-3xl bg-card p-6 shadow-card border border-border/60 hover:-translate-y-1 transition-transform">
-              <div className="h-11 w-11 rounded-2xl bg-gradient-primary grid place-items-center mb-4 shadow-soft">
-                <f.icon className="h-5 w-5 text-primary-foreground" />
-              </div>
-              <h3 className="font-semibold">{f.title}</h3>
-              <p className="text-sm text-muted-foreground mt-1.5">{f.desc}</p>
             </div>
           ))}
         </div>
