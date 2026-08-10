@@ -2,8 +2,8 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
-const GATEWAY_URL = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
-const MODEL = "gemini-2.5-flash";
+const GATEWAY_URL = "https://ai.gateway.lovable.dev/v1/chat/completions";
+const MODEL = "google/gemini-3.6-flash";
 
 const LEARNING_MODES = [
   "explain_simply",
@@ -95,11 +95,11 @@ Reply in ${lang} when the student writes in ${lang}; otherwise reply in English.
 }
 
 async function callAI(messages: { role: string; content: string }[]) {
-  const apiKey = process.env.GOOGLE_AI_API_KEY;
-  if (!apiKey) throw new Error("GOOGLE_AI_API_KEY is not configured");
+  const apiKey = process.env.LOVABLE_API_KEY;
+  if (!apiKey) throw new Error("LOVABLE_API_KEY is not configured");
   const res = await fetch(GATEWAY_URL, {
     method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+    headers: { "Lovable-API-Key": apiKey, "Content-Type": "application/json" },
     body: JSON.stringify({ model: MODEL, messages }),
   });
   if (!res.ok) {
