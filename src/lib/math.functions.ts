@@ -141,7 +141,15 @@ export const getMathSolution = createServerFn({ method: "POST" })
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!row) throw new Error("Solution not found");
-    return { solution: row };
+
+    const paths = ((row as { image_paths?: string[] }).image_paths ?? []) as string[];
+    let imageUrls: string[] = [];
+    if (paths.length) {
+      const { data: signed } = await supabase.storage.from(BUCKET).createSignedUrls(paths, 3600);
+      imageUrls = (signed ?? []).map((s) => s.signedUrl).filter(Boolean) as string[];
+    }
+
+    return { solution: row, imageUrls };
   });
 
 export const deleteMathSolution = createServerFn({ method: "POST" })
@@ -149,6 +157,16 @@ export const deleteMathSolution = createServerFn({ method: "POST" })
   .inputValidator((d: { id: string }) => z.object({ id: z.string().uuid() }).parse(d))
   .handler(async ({ context, data }) => {
     const { supabase, userId } = context;
+    const { data: row } = await supabase
+      .from("math_solutions")
+      .select("image_paths")
+      .eq("id", data.id)
+      .eq("user_id", userId)
+      .maybeSingle();
+    const paths = ((row as { image_paths?: string[] } | null)?.image_paths ?? []) as string[];
+    if (paths.length) {
+      await supabase.storage.from(BUCKET).remove(paths);
+    }
     const { error } = await supabase
       .from("math_solutions")
       .delete()
