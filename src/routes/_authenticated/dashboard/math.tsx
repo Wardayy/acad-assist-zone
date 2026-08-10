@@ -113,6 +113,7 @@ function MathTutorPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>("");
   const [images, setImages] = useState<{ name: string; dataUrl: string }[]>([]);
+  const [historyImages, setHistoryImages] = useState<string[]>([]);
   const [dragOver, setDragOver] = useState(false);
 
   const MAX_IMAGES = 2;
@@ -171,6 +172,7 @@ function MathTutorPage() {
     setLoading(true);
     setSolution("");
     setActiveId(null);
+    setHistoryImages([]);
     try {
       const res = await solve({
         data: { question: q, images: images.map((i) => i.dataUrl) },
@@ -192,12 +194,14 @@ function MathTutorPage() {
     setLoading(true);
     setSolution("");
     setImages([]);
+    setHistoryImages([]);
 
     try {
       const res = await getFn({ data: { id } });
       setSolution(res.solution.solution);
       setActiveQuestion(res.solution.question);
       setQuestion(res.solution.question);
+      setHistoryImages(res.imageUrls ?? []);
       setActiveId(id);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed to load solution");
@@ -229,6 +233,7 @@ function MathTutorPage() {
     setQuestion("");
     setError("");
     setImages([]);
+    setHistoryImages([]);
   }
 
 
@@ -371,6 +376,23 @@ function MathTutorPage() {
             </div>
             {solution ? (
               <div className="space-y-4">
+                {historyImages.length > 0 && (
+                  <div className="rounded-2xl border border-border/60 bg-background/40 p-4">
+                    <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
+                      Attached images
+                    </div>
+                    <div className="grid sm:grid-cols-2 gap-3">
+                      {historyImages.map((url, i) => (
+                        <img
+                          key={i}
+                          src={url}
+                          alt={`Attached problem image ${i + 1}`}
+                          className="w-full h-40 object-contain rounded-xl border border-border bg-background"
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
                 {activeQuestion && (
                   <div className="rounded-2xl border border-border/60 bg-background/40 p-4">
                     <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
