@@ -4,6 +4,18 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 const GATEWAY_URL = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
 const MODEL = "gemini-2.5-flash";
+const BUCKET = "math-images";
+
+function parseDataUrl(dataUrl: string): { bytes: Uint8Array; mime: string; ext: string } | null {
+  const m = dataUrl.match(/^data:(image\/[a-zA-Z+]+);base64,(.+)$/);
+  if (!m) return null;
+  const mime = m[1];
+  const binary = atob(m[2]);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  const ext = mime.split("/")[1].replace("jpeg", "jpg");
+  return { bytes, mime, ext };
+}
 
 const SYSTEM_PROMPT = `You are StudyBloom Math Tutor, an expert in Algebra, Geometry, Trigonometry, Calculus, Statistics, and Linear Algebra.
 
@@ -79,6 +91,26 @@ export const solveMath = createServerFn({ method: "POST" })
       .select("id,created_at")
       .single();
     if (error) throw new Error(error.message);
+
+    // Persist uploaded images to private storage (best-effort)
+    const paths: string[] = [];
+    const imgs = data.images ?? [];
+    for (let i = 0; i < imgs.length; i++) {
+      try {
+        const parsed = parseDataUrl(imgs[i]);
+        if (!parsed) continue;
+        const path = `${userId}/${row.id}/${i}.${parsed.ext}`;
+        const { error: upErr } = await supabase.storage
+          .from(BUCKET)
+          .upload(path, parsed.bytes, { contentType: parsed.mime, upsert: true });
+        if (!upErr) paths.push(path);
+      } catch {
+        // ignore individual upload failures
+      }
+    }
+    if (paths.length) {
+      await supabase.from("math_solutions").update({ image_paths: paths }).eq("id", row.id).eq("user_id", userId);
+    }
 
     return { solution, id: row.id, created_at: row.created_at };
   });
