@@ -113,6 +113,7 @@ function MathTutorPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>("");
   const [images, setImages] = useState<{ name: string; dataUrl: string }[]>([]);
+  const [historyImages, setHistoryImages] = useState<string[]>([]);
   const [dragOver, setDragOver] = useState(false);
 
   const MAX_IMAGES = 2;
@@ -192,12 +193,14 @@ function MathTutorPage() {
     setLoading(true);
     setSolution("");
     setImages([]);
+    setHistoryImages([]);
 
     try {
       const res = await getFn({ data: { id } });
       setSolution(res.solution.solution);
       setActiveQuestion(res.solution.question);
       setQuestion(res.solution.question);
+      setHistoryImages(res.imageUrls ?? []);
       setActiveId(id);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed to load solution");
